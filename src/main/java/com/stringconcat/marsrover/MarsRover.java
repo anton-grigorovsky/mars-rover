@@ -6,16 +6,17 @@ import java.util.stream.Collectors;
 
 public class MarsRover {
 
-    private PositionCalculator processor;
-    private Position position;
+    private final PositionCalculator calculator;
     private final LinkedList<Command> commands = new LinkedList<>();
+    private Position position;
 
-    public MarsRover(int x, int y, Direction direction) {
-        this.position = new Position(x, y, direction);
+    public MarsRover(Position startPosition, PositionCalculator calculator) {
+        this.position = startPosition;
+        this.calculator = calculator;
     }
 
     public String getPosition() {
-        return position.getPosition();
+        return position.getX() + " " + position.getY() + " " + position.getDirection().getCode();
     }
 
     public void addCommands(Command... commands) {
@@ -28,6 +29,6 @@ public class MarsRover {
     }
 
     private void execute(Command command) {
-        position = processor.calculate(position, command);
+        position = calculator.calculate(position, command);
     }
 }
