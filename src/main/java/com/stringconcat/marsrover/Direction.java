@@ -1,5 +1,9 @@
 package com.stringconcat.marsrover;
 
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Stream;
+
 public enum Direction {
     NORTH("N"),
     WEST("W"),
@@ -32,5 +36,9 @@ public enum Direction {
             case EAST -> SOUTH;
             case NORTH -> EAST;
         };
+    }
+
+    public static Optional<Direction> fromString(String code) {
+        return Stream.of(Direction.values()).filter(c -> Objects.equals(code, c.code)).findFirst();
     }
 }
